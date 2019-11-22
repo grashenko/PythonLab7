@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
 
-data_train = pd.read_csv('train_and_test2.csv', delimiter=',', index_col='Passengerid')
+data_train = pd.read_csv('train.csv', delimiter=',')
 
 print(data_train.head())
