@@ -2,16 +2,16 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 
 data_train = pd.read_csv('train.csv', delimiter=',')
 data_test = pd.read_csv('train.csv', delimiter=',')
 
 data_train =data_train.dropna()
 data_test = data_test.dropna()
-
-print(data_train.head())
-print(data_test.head())
-
 
 print(data_train.columns[data_train.isnull().values.any()].tolist())
 
@@ -53,3 +53,11 @@ def test_classifier(classifier, classifier_name):
 
 
 classifier = test_classifier(KNeighborsClassifier(), 'KNN')
+classifier = test_classifier(LogisticRegression(), 'LR')
+classifier = test_classifier(SVC(), 'SVM')
+classifier = test_classifier(DecisionTreeClassifier(), 'Tree')
+for col, i in zip(cols_x, classifier.feature_importances_):
+    print(col, ": ", i)
+classifier = test_classifier(GradientBoostingClassifier(), 'GB')
+for col, i in zip(cols_x, classifier.feature_importances_):
+    print(col, ": ", i)
